@@ -25,10 +25,10 @@ const ChannelList = props => {
     navigation.setOptions({
       headerRight: () => (
           <View style={styles.headerButtons}>
-        <FontAwesome.Button name="plus" color={Platform.OS === 'android' ? 'white' : 'blue'} onPress={() => navigation.navigate("AddChanel")}/>
+        <FontAwesome.Button name="plus" backgroundColor={Platform.OS === 'android' ? 'blue' : 'white'} color={Platform.OS === 'android' ? 'white' : 'blue'} onPress={() => navigation.navigate("AddChanel")}/>
         <Button
             title="Sign out"
-            titleStyle={{color: Platform.OS === 'android' ? 'white' : 'blue'}}
+            color={Platform.OS === 'android' ? 'blue' : 'white'}
             onPress={handleSignout}
         />
         </View>
