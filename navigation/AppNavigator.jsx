@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import ChanelList from '../components/ChannelList';
+import ChanelAdd from '../components/ChannelAdd';
 
 const Stack = createStackNavigator();
 
@@ -49,6 +50,18 @@ function AppNavigator() {
                         headerTitle: 'Chanel List',
                         headerTitleAlign: 'center',
                         headerLeft: null,
+                        headerStyle: {
+                            backgroundColor: Platform.OS === 'android' ? 'blue' : ''
+                        },
+                        headerTintColor: Platform.OS === 'android' ? 'white' : 'blue'
+                    }}
+                />
+                <Stack.Screen 
+                    name="AddChanel"
+                    component={ChanelAdd}
+                    options={{
+                        headerTitle: 'Add a new RSS/Chanel',
+                        headerTitleAlign: 'center',
                         headerStyle: {
                             backgroundColor: Platform.OS === 'android' ? 'blue' : ''
                         },
