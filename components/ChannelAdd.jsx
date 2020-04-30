@@ -3,7 +3,9 @@ import { View, TextInput, Text, Button, StyleSheet, Modal, Alert } from 'react-n
 import * as rssParser from 'react-native-rss-parser';
 import { addChanel } from '../functions/db';
 import { auth } from '../FirebaseConfig';
+import { Audio } from 'expo-av';
 import { FontAwesome } from "@expo/vector-icons";
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 const ChannelAdd = props => {
     const [rssLink, setRssLink] = useState('');
@@ -46,14 +48,43 @@ const ChannelAdd = props => {
         }
     };
 
+    const openQRScan = async () => {
+        if (!hasPermission || hasPermission == null) {
+            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+        }
+        if (hasPermission) {
+            setOpenedQR(true);
+        }
+    };
 
+    const playSavedSound = async () => {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require('../assets/sounds/funnySound.mp3'));
+            await soundObject.playAsync();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
+    const handleBarCodeScanned = ({ data }) => {
+        setRssLink(data);
+        setOpenedQR(false);
+      };
 
     return (
         <View style={styles.mainContainer}>
             <View style={styles.inputContainer}>
                 <TextInput placeholder="RSS Link" style={styles.input} onChangeText={handleRssLink} value={rssLink} />
+                <FontAwesome.Button name="qrcode" size={35} onPress={openQRScan} />
             </View>
+            { (openedQR && hasPermission) &&
+                <BarCodeScanner
+                    onBarCodeScanned={handleBarCodeScanned}
+                    style={StyleSheet.absoluteFillObject}
+                />
+            }
             { !openedQR &&
                 <View style={styles.buttonContainer}>
                         <View style={styles.button}><Button title="Cancel" color="red"  onPress={() => {props.navigation.navigate('Main');}} /></View>
