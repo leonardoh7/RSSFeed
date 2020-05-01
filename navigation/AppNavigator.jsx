@@ -6,6 +6,8 @@ import Login from '../components/Login';
 import SignUp from '../components/SignUp';
 import ChanelList from '../components/ChannelList';
 import ChanelAdd from '../components/ChannelAdd';
+import Feed from '../components/Feed';
+import Article from "../components/Article";
 
 const Stack = createStackNavigator();
 
@@ -67,6 +69,37 @@ function AppNavigator() {
                         },
                         headerTintColor: Platform.OS === 'android' ? 'white' : 'blue'
                     }}
+                />
+                <Stack.Screen 
+                    name="Feed"
+                    component={Feed}
+                    options={({ route }) => ({
+                        headerTitle: route.params?.chanel.title,
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: Platform.OS === 'android' ? 'blue' : ''
+                        },
+                        headerTitleStyle: {
+                            paddingLeft: 25
+                        },
+                        headerTintColor: Platform.OS === 'android' ? 'white' : 'blue' 
+                    })}
+                />
+                <Stack.Screen 
+                    name="ArticleDetail"
+                    component={Article}
+                    options={({ route }) => ({
+                        headerTitle: route.params?.title,
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            backgroundColor: Platform.OS === 'android' ? 'blue' : ''
+                        },
+                        headerTitleStyle: {
+                            fontSize: 18,
+                            paddingLeft: 25
+                        },
+                        headerTintColor: Platform.OS === 'android' ? 'white' : 'blue' 
+                    })}
                 />
             </Stack.Navigator>
         </NavigationContainer>

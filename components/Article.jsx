@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { WebView } from 'react-native-webview';
 
 const Article = props => {
-    
-    return (
+    const [url, setUrl] = useState('');
+    const {navigation, route} = props;
+    useEffect(() => {
+        if (route.params?.url) {
+            setUrl(route.params?.url);
             
+        }
+      }, [route.params?.url]);
+    return (
+            <WebView source={{ uri: url }} style={{ marginTop: 20 }} />
         );
 }
 
