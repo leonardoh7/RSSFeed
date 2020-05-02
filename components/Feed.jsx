@@ -61,6 +61,6 @@ export default Feed;
 const styles = StyleSheet.create({
   screen: { padding: 30 },
   list: {
-    height: "90%"
+    height: "100%"
   }
 });

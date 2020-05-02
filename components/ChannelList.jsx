@@ -28,7 +28,7 @@ const ChannelList = props => {
         <FontAwesome.Button name="plus" backgroundColor={Platform.OS === 'android' ? 'blue' : 'white'} color={Platform.OS === 'android' ? 'white' : 'blue'} onPress={() => navigation.navigate("AddChanel")}/>
         <Button
             title="Sign out"
-            color={Platform.OS === 'android' ? 'blue' : 'white'}
+            color="blue"
             onPress={handleSignout}
         />
         </View>
@@ -92,7 +92,7 @@ const ChannelList = props => {
 const styles = StyleSheet.create({
     screen: { padding: 30 },
     list: {
-      height: "90%"
+      height: "100%"
     },
     norss: {
         flex: 1,

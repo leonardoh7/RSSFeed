@@ -14,8 +14,9 @@ const FeedItem = (props) => {
       )}
     >
       <View style={styles.listItem}>
+          <Text>{props.item.published}</Text>
         <Text style={styles.name}>
-          {props.item.image} {props.item.title}
+      {props.item.image} {props.item.title}
         </Text>
         
       </View>
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
   },
   name: {
-    fontSize: 20,
+    fontSize: 18,
   },
 });
 

@@ -49,7 +49,7 @@ function AppNavigator() {
                     name="Main"
                     component={ChanelList}
                     options={{
-                        headerTitle: 'Chanel List',
+                        headerTitle: 'Chanels',
                         headerTitleAlign: 'center',
                         headerLeft: null,
                         headerStyle: {
@@ -96,7 +96,7 @@ function AppNavigator() {
                         },
                         headerTitleStyle: {
                             fontSize: 18,
-                            paddingLeft: 25
+                            paddingLeft: Platform.OS === 'ios' ? 50 : 23
                         },
                         headerTintColor: Platform.OS === 'android' ? 'white' : 'blue' 
                     })}
