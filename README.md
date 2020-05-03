@@ -1,5 +1,5 @@
 # RSSFeed
-Expo was used to create this project
+RSS Feed app using React Native, Expo and Firebase
 
 # Technology (Library, API,...)
 - Implement some Expo API
