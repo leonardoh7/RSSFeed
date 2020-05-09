@@ -11,7 +11,6 @@ var firebaseConfig = {
   appId: "1:701655634053:web:72c308ccae21848ab399ec"
 };
 
-console.log(process.env.AUTH_DOMAIN);
 let app = firebase.initializeApp(firebaseConfig);
 
 export const db = app.database();

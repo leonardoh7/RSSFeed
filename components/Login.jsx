@@ -1,6 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
 import { View, TextInput, Text, Button, StyleSheet, Modal, Alert } from 'react-native';
 import { auth } from '../FirebaseConfig'
+import { FontAwesome } from "@expo/vector-icons";
+import * as Facebook from 'expo-facebook';
+import * as firebase from 'firebase';
 
 const Login = props => {
     const initialState = {
@@ -26,7 +29,7 @@ const Login = props => {
         setState({ password: val });
       }
 
-      const handleSignIn = async () => {
+      const handleSignInWithEmail = async () => {
         if (state.userName.length < 4) {
             Alert.alert('Please enter an email address.');
             return;
@@ -54,7 +57,30 @@ const Login = props => {
               }
             }
             );
-      };
+        };
+
+        const handleSignInWithFB = async () => {
+          const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+            "253383302475223",
+            {
+              permissions: ["public_profile"]
+            }
+          );
+
+         if (type === 'success') {
+           // Build Firebase credential with the Facebook access token.
+           const credential = firebase.auth.FacebookAuthProvider.credential(token);
+          console.log(credential);
+           // Sign in with credential from the Facebook user.
+           auth.signInWithCredential(credential).then(function(result)  {
+              console.log(result);
+              props.navigation.navigate('Main');
+           }).catch(function(error) {
+             console.log(error.code);
+              console.log(error);
+           });
+         }  
+        }
 
     return (
         <View style={styles.inputContainer}>
@@ -62,9 +88,18 @@ const Login = props => {
             <TextInput placeholder="Password" secureTextEntry={true} style={styles.input} onChangeText={handlePassword} value={state.password} />
             
             <View style={styles.buttonContainer}>
-                    <View style={styles.button}><Button title="Login"  onPress={handleSignIn} /></View>
+                    <View style={styles.button}><Button title="Login"  onPress={handleSignInWithEmail} /></View>
                     <View style={styles.button}><Button title="Sign Up"  onPress={() => {props.navigation.navigate('SignUp');}}></Button></View>
-            </View>  
+            </View>
+            <Text>Or</Text>  
+            <View>
+                <FontAwesome.Button name="facebook-official" onPress={handleSignInWithFB}>
+                    Continue with Facebook
+                </FontAwesome.Button>
+                <FontAwesome.Button name="google" backgroundColor="red">
+                    Continue with Google
+                </FontAwesome.Button>
+            </View>
         </View>
     )
 }

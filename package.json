@@ -16,6 +16,7 @@
     "expo-av": "~8.1.0",
     "expo-barcode-scanner": "~8.1.0",
     "expo-cli": "^3.19.2",
+    "expo-facebook": "~8.1.0",
     "firebase": "7.9.0",
     "global": "^4.4.0",
     "react": "~16.9.0",
