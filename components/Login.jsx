@@ -60,27 +60,37 @@ const Login = props => {
         };
 
         const handleSignInWithFB = async () => {
-          const { type, token } = await Facebook.logInWithReadPermissionsAsync(
-            "253383302475223",
-            {
-              permissions: ["public_profile"]
-            }
-          );
+          try {
+            await Facebook.initializeAsync("253383302475223");
+            const {
+              type,
+              token,
+            } = await Facebook.logInWithReadPermissionsAsync({
+              permissions: ["public_profile"],
+            });
 
-         if (type === 'success') {
-           // Build Firebase credential with the Facebook access token.
-           const credential = firebase.auth.FacebookAuthProvider.credential(token);
-          console.log(credential);
-           // Sign in with credential from the Facebook user.
-           auth.signInWithCredential(credential).then(function(result)  {
-              console.log(result);
-              props.navigation.navigate('Main');
-           }).catch(function(error) {
-             console.log(error.code);
-              console.log(error);
-           });
-         }  
-        }
+            if (type === "success") {
+              // Build Firebase credential with the Facebook access token.
+              const credential = firebase.auth.FacebookAuthProvider.credential(
+                token
+              );
+              console.log(credential);
+              // Sign in with credential from the Facebook user.
+              auth
+                .signInWithCredential(credential)
+                .then(function (result) {
+                  console.log(result);
+                  props.navigation.navigate("Main");
+                })
+                .catch(function (error) {
+                  console.log(error.code);
+                  console.log(error);
+                });
+            }
+          } catch ({ message }) {
+            console.log(message);
+          }
+        };
 
     return (
         <View style={styles.inputContainer}>
